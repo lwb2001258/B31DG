@@ -12,51 +12,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-# # Load the image
-# image = cv2.imread("girl.jpg")
-#
-# # Define translation parameters
-# tx, ty = 50, 30  # Shift right by 50, down by 30
-#
-# # Create the 2x3 translation matrix
-# M = np.float32([[1, 0, tx], [0, 1, ty]])
-#
-# # Get image dimensions
-# height, width = image.shape[:2]
-#
-#
-# # Create an empty canvas (black background) for the translated image
-# translated_image = np.full((height+ty, width+tx, 3), 255, dtype=np.uint8)
-# # print(translated_image)
-#
-#
-#
-# #
-# #
-# # Translate the image by copying the pixels to the new canvas
-# # Perform translation
-# translated_image[ty:ty + height, tx: tx + width] = image
-# print(translated_image)
-# cv2.imshow("image",image)
-# cv2.imshow("translated_image",translated_image)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-# # create a window which can be resized
-# cv2.namedWindow('origin_girl', cv2.WINDOW_NORMAL)
-# # resize the window
-# cv2.resizeWindow('origin_girl', 600, 400)
-# cv2.imshow("origin_girl", image)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
-#
-# # create a window which can be resized
-# cv2.namedWindow('translated_girl', cv2.WINDOW_NORMAL)
-# # resize the window
-# cv2.resizeWindow('translated_girl', 600, 400)
-# cv2.imshow("translated_girl", translated_image)
-#
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+
 
 
 # Load the image
