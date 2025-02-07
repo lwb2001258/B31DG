@@ -31,11 +31,12 @@ intensity range ([0,255]).
 """
 
 # Load the color image
-image = cv2.imread("peppers.png")  # Load the image
-image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convert BGR to RGB for correct display
+image = cv2.imread("peppers.png")
+# Convert BGR to RGB for correct display
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # Convert to grayscale
-gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 # Display original and grayscale images
 fig, axes = plt.subplots(1, 2, figsize=(15, 8))
@@ -68,49 +69,54 @@ plt.close()
 values of N ranging from 255 to 8. Display the resulting images.
 """
 
-# Load the color image and convert to grayscale
-image = cv2.imread("peppers.png")
-gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+# Load the grayscale image
+image_path = "peppers.png"
+image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
 
-# Define the range of N values
+# Define different intensity ranges
 N_values = [255, 128, 64, 32, 16, 8]
 
-# Prepare a list to store the rescaled images
-rescaled_images = []
+# Create subplots
+fig, axes = plt.subplots(2, 3, figsize=(12, 8))
+axes = axes.ravel()
 
-# Rescale the grayscale image for each N in the range
-for N in N_values:
-    # Rescale the grayscale image to the range [0, N]
-    # rescaled_image = np.clip(gray_image / 255.0 * N, 0, N).astype(np.uint8)
-    rescaled_image = np.round(gray_image / 255 * N) * (255 // N)
-    # rescaled_image = np.round(gray_image / 255 * N)
-    # rescaled_image = gray_image
-    rescaled_images.append(rescaled_image)
+# Process and display images
+for i, N in enumerate(N_values):
+    scaled_image = (image.astype(np.float32) * N / 255).astype(np.uint8)
+    axes[i].imshow(scaled_image, cmap='gray', vmin=0, vmax=N)
+    axes[i].set_title(f"N = {N}")
+    axes[i].axis('off')
+    axes[i].set_xticks([])
+    axes[i].set_yticks([])
 
-# Display the original and rescaled images
-fig, axes = plt.subplots(1, len(N_values) + 1, figsize=(10, 10))
-
-# Display original grayscale image
-axes[0].imshow(gray_image, cmap='gray', vmin=0, vmax=255)
-axes[0].set_title("Original Grayscale")
-axes[0].axis('off')
-axes[0].set_xticks([])
-axes[0].set_yticks([])
-
-# Display the rescaled images for each N
-for i, (N, rescaled_image) in enumerate(zip(N_values, rescaled_images)):
-    axes[i + 1].imshow(rescaled_image, cmap='gray', vmin=0, vmax=N)
-    axes[i + 1].set_title(f"[0, {N}]")
-    axes[i + 1].axis('off')
-    axes[i + 1].set_xticks([])
-    axes[i + 1].set_yticks([])
-
+plt.tight_layout()
 # Show the images
 plt.show(block=False)
 # waiting for the use to press the enter key to close the plot window
 input("close the plot window if in pycharm and Press Enter to continue ... ")
 # close the plot window
 plt.close()
+
+# Create subplots
+fig, axes = plt.subplots(2, 3, figsize=(20, 15),squeeze=False)
+fig.subplots_adjust(hspace=0.5, wspace=0.3)
+axes = axes.ravel()
+
+# Process and display images
+for i, N in enumerate(N_values):
+    scaled_image = (image.astype(np.float32) * N / 255).astype(np.uint8)
+    #  plot the histogram
+    axes[i].hist(scaled_image.ravel(), bins=N, range=[0, N], color='gray', alpha=0.7)
+    axes[i].set_xlim([0, N])
+    axes[i].set_title(f"Histogram for N = {N}", pad=10)
+    axes[i].set_ylabel("Frequency",labelpad=10)
+# Show the images
+plt.show(block=False)
+# waiting for the use to press the enter key to close the plot window
+input("close the plot window if in pycharm and Press Enter to continue ... ")
+# close the plot window
+plt.close()
+
 
 
 """
@@ -143,6 +149,7 @@ axes[1].set_title("Equalized Grayscale Image")
 axes[1].axis('off')
 axes[1].set_xticks([])
 axes[1].set_yticks([])
+
 
 
 # Show the images
